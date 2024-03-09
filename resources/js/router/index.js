@@ -10,7 +10,8 @@ import Administrator from "../views/Administrator.vue";
 import Clients from "../views/Clients.vue";
 import Projects from "../views/Projects.vue";
 import Users from "../views/Users.vue";
-import Roles from "../views/Roles.vue";
+import UserRoles from "../views/UserRoles.vue";
+import UserAppRoles from "../views/UserAppRoles.vue";
 import Groups from "../views/Groups.vue";
 import DeveloperChat from "../views/DeveloperChat.vue";
 import DeveloperLogs from "../views/DeveloperLogs.vue";
@@ -99,9 +100,14 @@ const routes = [
                 component: Users,
             },
             {
-                path: "roles",
-                name: "Roles",
-                component: Roles,
+                path: "user/roles",
+                name: "UserRoles",
+                component: UserRoles,
+            },
+            {
+                path: "user/app/roles",
+                name: "UserAppRoles",
+                component: UserAppRoles,
             },
             {
                 path: "groups",
