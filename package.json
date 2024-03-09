@@ -1,46 +1,25 @@
 {
-	"name": "cronex",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"serve": "vue-cli-service serve",
-		"build": "vue-cli-service build"
-	},
-	"dependencies": {
-		"@popperjs/core": "^2.11.8",
-		"@solana/wallet-adapter-vue": "^0.4.5",
-		"@solana/wallet-adapter-wallets": "^0.19.26",
-		"@solana/web3.js": "^1.90.0",
-		"@toruslabs/eccrypto": "^4.0.0",
-		"browserify": "^17.0.0",
-		"browserify-zlib": "^0.2.0",
-		"cipher-base": "^1.0.4",
-		"core-js": "^3.8.3",
-		"datatables.net": "^1.13.10",
-		"dotenv": "^16.4.4",
-		"firebase": "^10.8.0",
-		"https-browserify": "^1.0.0",
-		"jquery": "^3.7.1",
-		"json-server": "^1.0.0-alpha.23",
-		"micro-ftch": "^0.3.1",
-		"mitt": "^3.0.1",
-		"node-jose-browserify": "^1.1.14",
-		"path-browserify": "^1.0.1",
-		"solana-wallets-vue": "^0.6.1",
-		"stream-browserify": "^3.0.0",
-		"stream-http": "^3.2.0",
-		"url": "^0.11.3",
-		"vue": "^3.2.13",
-		"vue-router": "^4.0.3",
-		"zlib": "^1.0.5"
-	},
-	"devDependencies": {
-		"@vue/cli-plugin-babel": "~5.0.0",
-		"@vue/cli-plugin-router": "~5.0.0",
-		"@vue/cli-service": "~5.0.0"
-	},
-	"browser": {
-		"zlib": false,
-		"stream": false
-	}
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "axios": "^1.6.4",
+        "laravel-vite-plugin": "^1.0.0",
+        "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "@solana/wallet-adapter-wallets": "^0.19.31",
+        "@vitejs/plugin-vue": "^5.0.4",
+        "buffer": "^6.0.3",
+        "date-fns": "^3.3.1",
+        "firebase": "^10.8.1",
+        "mitt": "^3.0.1",
+        "pinia": "^2.1.7",
+        "solana-wallets-vue": "^0.6.1",
+        "vue": "^3.4.21",
+        "vue-router": "^4.3.0"
+    }
 }
