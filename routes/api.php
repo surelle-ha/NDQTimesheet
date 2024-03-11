@@ -4,6 +4,8 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserRolesController;
+use App\Http\Controllers\UserAppRolesController;
 use App\Http\Controllers\LogController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,14 +33,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/user/auth/logout', [UsersController::class, 'logout']);
     Route::post('/user/auth/test', [UsersController::class, 'test']);
-    Route::get('/user/auth/delete', function() { return response()->json(['st' => 200]); });
-    Route::get('/user/auth/update', function() { return response()->json(['st' => 200]); });
-    Route::get('/user/auth/status', function() { return response()->json(['st' => 200]); });
     
-    
-    Route::get('/role/add', function() { return response()->json(['st' => 200]); });
-    Route::get('/role/update', function() { return response()->json(['st' => 200]); });
-    Route::get('/role/delete', function() { return response()->json(['st' => 200]); });
+    Route::post('/role/fetch', [UserRolesController::class, 'getAllUserRoles']);
+    Route::post('/role/app/fetch', [UserAppRolesController::class, 'getAllUserAppRoles']);
 
     Route::post('/system/developer/getLogs', [LogController::class, 'getLogs']);
 });

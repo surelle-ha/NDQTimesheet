@@ -24,6 +24,7 @@ export const useAuthStore = defineStore("authStore", {
             }
 
             try {
+                console.log("proceessing");
                 const response = await axios.post(
                     "http://127.0.0.1:8000/api/user/auth/validateToken",
                     {},
@@ -41,9 +42,15 @@ export const useAuthStore = defineStore("authStore", {
                     return false;
                 }
             } catch (axiosError) {
-                error.value = axiosError.response
-                    ? axiosError.response.data.message
-                    : axiosError.message;
+                if (axiosError.response && axiosError.response.status === 401) {
+                    error.value = "Unauthorized access. Please log in again.";
+                } else {
+                    // Handle other errors
+                    error.value = axiosError.response
+                        ? axiosError.response.data.message
+                        : axiosError.message;
+                }
+
                 this.destroyUser();
                 return false;
             }

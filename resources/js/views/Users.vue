@@ -188,6 +188,7 @@
 
 <script>
 import { onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/AuthStore";
 import { useUserStore } from "@/stores/UserStore";
 import DeleteUserModal from "@/components/widgets/Modals/DeleteUserModal.vue";
@@ -201,6 +202,7 @@ export default {
         const dataTable = ref(null);
         const authStore = useAuthStore();
         const userStore = useUserStore();
+        const router = useRouter();
 
         const getAllUsersHandler = async () => {
             console.log("user table refresh");
@@ -209,6 +211,9 @@ export default {
                 console.log(userStore.users);
                 allUsers.value = userStore.users;
                 updateDataTable();
+            } else {
+                authStore.destroyUser();
+                router.push({ name: "Login" });
             }
         };
 

@@ -1,6 +1,6 @@
 {
   "node_modules/@solflare-wallet/metamask-sdk/lib/esm/index.js": {
-    "file": "assets/index-8ovr4DMh.js",
+    "file": "assets/index-DyFcID0x.js",
     "src": "node_modules/@solflare-wallet/metamask-sdk/lib/esm/index.js",
     "isDynamicEntry": true,
     "imports": [
@@ -8,7 +8,7 @@
     ]
   },
   "node_modules/@solflare-wallet/sdk/lib/esm/index.js": {
-    "file": "assets/index-BEIVKPHM.js",
+    "file": "assets/index-hFYjfxb0.js",
     "src": "node_modules/@solflare-wallet/sdk/lib/esm/index.js",
     "isDynamicEntry": true,
     "imports": [
@@ -316,7 +316,7 @@
     "src": "resources/js/assets/images/shapes/06.png"
   },
   "resources/js/main.js": {
-    "file": "assets/main-B3bWs-Ia.js",
+    "file": "assets/main-F0vWyU6R.js",
     "src": "resources/js/main.js",
     "isEntry": true,
     "dynamicImports": [

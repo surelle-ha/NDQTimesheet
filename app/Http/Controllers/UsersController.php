@@ -123,35 +123,43 @@ class UsersController extends Controller
     }
 
     public function validateToken(Request $request)
-    {
-        try {
-            // Extract the token from the request
-            $token = $request->bearerToken();
-    
-            // Find the token in the database
-            $tokenModel = \Laravel\Sanctum\PersonalAccessToken::findToken($token);
-            if (!$tokenModel) {
-                return response()->json(['success' => false, 'res_api_code' => 'TOKEN101', 'message' => 'Invalid token'], 200);
-            }
-    
-            // Check if token belongs to a user
-            $user = $tokenModel->tokenable;
-            if (!$user) {
-                return response()->json(['success' => false, 'res_api_code' => 'TOKEN102', 'message' => 'No user associated with this token'], 200);
-            }
-    
-            // Delete all other tokens for this user
-            $user->tokens->where('id', '!=', $tokenModel->id)->each(function ($token) {
-                $token->delete();
-            });
-    
-            // Token is valid and active
-            return response()->json(['success' => true, 'res_api_code' => 'TOKEN200', 'message' => 'Token is valid', 'user' => $user], 200);
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return response()->json(['success' => false, 'res_api_code' => 'TOKEN103', 'message' => 'Server error'], 500);
+{
+    try {
+        // Extract the token from the request
+        $token = $request->bearerToken();
+
+        if (!$token) {
+            return response()->json(['success' => false, 'res_api_code' => 'TOKEN100', 'message' => 'No token provided'], 400);
         }
+
+        // Find the token in the database
+        $tokenModel = \Laravel\Sanctum\PersonalAccessToken::findToken($token);
+
+        if (!$tokenModel) {
+            return response()->json(['success' => false, 'res_api_code' => 'TOKEN101', 'message' => 'Invalid token'], 200);
+        }
+
+        $user = $tokenModel->tokenable;
+
+        if (!$user) {
+            $tokenModel->delete();
+            return response()->json(['success' => false, 'res_api_code' => 'TOKEN102', 'message' => 'No user associated with this token, token deleted'], 200);
+        }
+
+        // Delete all other tokens for this user
+        \Laravel\Sanctum\PersonalAccessToken::where('tokenable_id', $user->id)
+            ->where('id', '!=', $tokenModel->id)
+            ->delete();
+
+        // Token is valid and active
+        return response()->json(['success' => true, 'res_api_code' => 'TOKEN200', 'message' => 'Token is valid', 'user' => $user], 200);
+    } catch (\Exception $e) {
+        Log::error($e->getMessage());
+        return response()->json(['success' => false, 'res_api_code' => 'TOKEN103', 'message' => 'Server error'], 500);
     }
+}
+
+
     
     public function logout(Request $request)
     {
