@@ -70,6 +70,10 @@
 <script>
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
 import { useAuthStore } from "@/stores/AuthStore";
 import { useProjectStore } from "@/stores/ProjectStore";
 
@@ -82,15 +86,21 @@ export default {
         const authStore = useAuthStore();
         const projectStore = useProjectStore();
         const router = useRouter();
+        const $toast = useToast();
 
         const getAllProjectsHandler = async () => {
             console.log("user table refresh");
             const res = await projectStore.loadProjects(authStore.getToken());
             if (res) {
+                $toast.success("Data Loaded");
                 console.log(projectStore.projects);
                 allProjects.value = projectStore.projects;
                 updateDataTable();
             } else {
+                $toast.open({
+                    message: "Something went wrong!",
+                    type: "error",
+                });
                 authStore.destroyUser();
                 router.push({ name: "Login" });
             }

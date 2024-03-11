@@ -30,9 +30,12 @@ import { useAuthStore } from "@/stores/AuthStore";
 
 // Auth Guards
 const requireAuth = async (to, from, next) => {
+    console.log("accessed");
     const authStore = useAuthStore();
     const isValidToken = await authStore.validateToken();
+    console.log("accessed!!", isValidToken);
     if (!isValidToken) {
+        authStore.destroyUser();
         next({ name: "Login" });
     } else {
         next();
@@ -60,11 +63,13 @@ const routes = [
                 path: "login",
                 name: "Login",
                 component: Login,
+                beforeEnter: requireNoAuth,
             },
             {
                 path: "register",
                 name: "Register",
                 component: Register,
+                beforeEnter: requireNoAuth,
             },
         ],
     },
@@ -78,61 +83,73 @@ const routes = [
                 path: "/",
                 name: "Dashboard",
                 component: Dashboard,
+                beforeEnter: requireAuth,
             },
             {
                 path: "admin",
                 name: "Administrator",
                 component: Administrator,
+                beforeEnter: requireAuth,
             },
             {
                 path: "clients",
                 name: "Clients",
                 component: Clients,
+                beforeEnter: requireAuth,
             },
             {
                 path: "projects",
                 name: "Projects",
                 component: Projects,
+                beforeEnter: requireAuth,
             },
             {
                 path: "users",
                 name: "Users",
                 component: Users,
+                beforeEnter: requireAuth,
             },
             {
                 path: "user/roles",
                 name: "UserRoles",
                 component: UserRoles,
+                beforeEnter: requireAuth,
             },
             {
                 path: "user/app/roles",
                 name: "UserAppRoles",
                 component: UserAppRoles,
+                beforeEnter: requireAuth,
             },
             {
                 path: "groups",
                 name: "Groups",
                 component: Groups,
+                beforeEnter: requireAuth,
             },
             {
                 path: "developer/chat",
                 name: "DeveloperChat",
                 component: DeveloperChat,
+                beforeEnter: requireAuth,
             },
             {
                 path: "developer/api/settings",
                 name: "DeveloperAPISettings",
                 component: DeveloperAPISettings,
+                beforeEnter: requireAuth,
             },
             {
                 path: "developer/theme/settings",
                 name: "DeveloperThemeSettings",
                 component: DeveloperThemeSettings,
+                beforeEnter: requireAuth,
             },
             {
                 path: "developer/logs",
                 name: "DeveloperLogs",
                 component: DeveloperLogs,
+                beforeEnter: requireAuth,
             },
         ],
     },

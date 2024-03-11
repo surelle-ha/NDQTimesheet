@@ -68,6 +68,10 @@
 <script>
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
 import { useAuthStore } from "@/stores/AuthStore";
 import { useGroupStore } from "@/stores/GroupStore";
 
@@ -80,15 +84,21 @@ export default {
         const authStore = useAuthStore();
         const groupStore = useGroupStore();
         const router = useRouter();
+        const $toast = useToast();
 
         const getAllGroupsHandler = async () => {
             console.log("user table refresh");
             const res = await groupStore.loadGroups(authStore.getToken());
             if (res) {
+                $toast.success("Data Loaded");
                 console.log(groupStore.groups);
                 allGroups.value = groupStore.groups;
                 updateDataTable();
             } else {
+                $toast.open({
+                    message: "Something went wrong!",
+                    type: "error",
+                });
                 authStore.destroyUser();
                 router.push({ name: "Login" });
             }

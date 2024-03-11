@@ -1,5 +1,164 @@
 <template>
-    <DeleteUserModal :user="selectedUser" />
+    <Dialog
+        v-model:visible="visible"
+        modal
+        :pt="{
+            root: 'border-none',
+            mask: {
+                style: 'backdrop-filter: blur(2px)',
+            },
+        }"
+        header="Header"
+        :style="{ width: '50rem' }"
+        :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+    >
+        <template #header>
+            <div
+                class="inline-flex align-items-center justify-content-center gap-2"
+            >
+                <span class="font-bold white-space-nowrap">Add User</span>
+            </div>
+        </template>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label
+                                    class="form-label"
+                                    for="validationDefault01"
+                                    >First name</label
+                                >
+                                <InputText
+                                    type="text"
+                                    class="form-control"
+                                    id="validationDefault01"
+                                    required=""
+                                />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label
+                                    class="form-label"
+                                    for="validationDefault02"
+                                    >Last name</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="validationDefault02"
+                                    required=""
+                                />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label
+                                    for="validationCustomUsername"
+                                    class="form-label"
+                                    >Username</label
+                                >
+                                <div class="form-group input-group">
+                                    <span
+                                        class="input-group-text"
+                                        id="basic-addon1"
+                                        >@</span
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="validationCustomUsername"
+                                        aria-label="Username"
+                                        aria-describedby="basic-addon1"
+                                        required=""
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label
+                                    class="form-label"
+                                    for="validationDefault03"
+                                    >City</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="validationDefault03"
+                                    required=""
+                                />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label
+                                    class="form-label"
+                                    for="validationDefault04"
+                                    >State</label
+                                >
+                                <select
+                                    class="form-select"
+                                    id="validationDefault04"
+                                    required=""
+                                >
+                                    <option selected="" disabled="" value="">
+                                        Choose...
+                                    </option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label
+                                    class="form-label"
+                                    for="validationDefault05"
+                                    >Zip</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="invalidCheck2"
+                                    required=""
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="invalidCheck2"
+                                >
+                                    Agree to terms and conditions
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">
+                                Submit form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <template #footer>
+            <Button
+                label="Cancel"
+                text
+                severity="secondary"
+                @click="visible = false"
+                autofocus
+            />
+            <Button
+                label="Save"
+                outlined
+                severity="secondary"
+                @click="visible = false"
+                autofocus
+            />
+        </template>
+    </Dialog>
 
     <div class="container-fluid content-inner mt-n5 py-0">
         <div class="row">
@@ -15,7 +174,55 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <p>##</p>
+                        <div class="container-fluid justify-content-start">
+                            <button
+                                class="btn btn-sm btn-primary rounded-pill mx-2"
+                                label="Show"
+                                @click="visible = true"
+                            >
+                                <span class="btn-inner">
+                                    <svg
+                                        class="icon-32"
+                                        width="32"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M9.5 12.5537C12.2546 12.5537 14.4626 10.3171 14.4626 7.52684C14.4626 4.73663 12.2546 2.5 9.5 2.5C6.74543 2.5 4.53737 4.73663 4.53737 7.52684C4.53737 10.3171 6.74543 12.5537 9.5 12.5537ZM9.5 15.0152C5.45422 15.0152 2 15.6621 2 18.2464C2 20.8298 5.4332 21.5 9.5 21.5C13.5448 21.5 17 20.8531 17 18.2687C17 15.6844 13.5668 15.0152 9.5 15.0152ZM19.8979 9.58786H21.101C21.5962 9.58786 22 9.99731 22 10.4995C22 11.0016 21.5962 11.4111 21.101 11.4111H19.8979V12.5884C19.8979 13.0906 19.4952 13.5 18.999 13.5C18.5038 13.5 18.1 13.0906 18.1 12.5884V11.4111H16.899C16.4027 11.4111 16 11.0016 16 10.4995C16 9.99731 16.4027 9.58786 16.899 9.58786H18.1V8.41162C18.1 7.90945 18.5038 7.5 18.999 7.5C19.4952 7.5 19.8979 7.90945 19.8979 8.41162V9.58786Z"
+                                            fill="currentColor"
+                                        ></path>
+                                    </svg>
+                                </span>
+                                Add User
+                            </button>
+
+                            <button
+                                class="btn btn-sm btn-primary rounded-pill"
+                                @click="exportToExcel"
+                            >
+                                <span class="btn-inner">
+                                    <svg
+                                        class="icon-32"
+                                        width="32"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M7.81 2H16.191C19.28 2 21 3.78 21 6.83V17.16C21 20.26 19.28 22 16.191 22H7.81C4.77 22 3 20.26 3 17.16V6.83C3 3.78 4.77 2 7.81 2ZM8.08 6.66V6.65H11.069C11.5 6.65 11.85 7 11.85 7.429C11.85 7.87 11.5 8.22 11.069 8.22H8.08C7.649 8.22 7.3 7.87 7.3 7.44C7.3 7.01 7.649 6.66 8.08 6.66ZM8.08 12.74H15.92C16.35 12.74 16.7 12.39 16.7 11.96C16.7 11.53 16.35 11.179 15.92 11.179H8.08C7.649 11.179 7.3 11.53 7.3 11.96C7.3 12.39 7.649 12.74 8.08 12.74ZM8.08 17.31H15.92C16.319 17.27 16.62 16.929 16.62 16.53C16.62 16.12 16.319 15.78 15.92 15.74H8.08C7.78 15.71 7.49 15.85 7.33 16.11C7.17 16.36 7.17 16.69 7.33 16.95C7.49 17.2 7.78 17.35 8.08 17.31Z"
+                                            fill="currentColor"
+                                        ></path>
+                                    </svg>
+                                </span>
+                                Export
+                            </button>
+                        </div>
+                        <p></p>
                         <div class="table-responsive">
                             <table
                                 id="datatable"
@@ -189,13 +396,25 @@
 <script>
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+import Dialog from "primevue/dialog";
+import Button from "primevue/button";
+import InputText from "primevue/inputtext";
+import Avatar from "primevue/avatar";
+import FloatLabel from "primevue/floatlabel";
+
+import * as XLSX from "xlsx";
+
 import { useAuthStore } from "@/stores/AuthStore";
 import { useUserStore } from "@/stores/UserStore";
-import DeleteUserModal from "@/components/widgets/Modals/DeleteUserModal.vue";
 
 export default {
-    components: { DeleteUserModal },
+    components: { Button, Dialog, InputText, Avatar, FloatLabel },
     setup() {
+        const visible = ref(false);
         const error = ref(null);
         const selectedUser = ref(null);
         const allUsers = ref([]);
@@ -203,15 +422,33 @@ export default {
         const authStore = useAuthStore();
         const userStore = useUserStore();
         const router = useRouter();
+        const $toast = useToast();
+
+        const test = () => {
+            $toast.success("test");
+        };
+
+        const exportToExcel = () => {
+            // Assuming allUsers.value is your complete dataset
+            const ws = XLSX.utils.json_to_sheet(allUsers.value);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Users");
+            XLSX.writeFile(wb, "users_data.xlsx");
+        };
 
         const getAllUsersHandler = async () => {
             console.log("user table refresh");
             const res = await userStore.loadUsers(authStore.getToken());
             if (res) {
+                $toast.success("Data Loaded");
                 console.log(userStore.users);
                 allUsers.value = userStore.users;
                 updateDataTable();
             } else {
+                $toast.open({
+                    message: "Something went wrong!",
+                    type: "error",
+                });
                 authStore.destroyUser();
                 router.push({ name: "Login" });
             }
@@ -243,10 +480,13 @@ export default {
         );
 
         return {
+            visible,
+            exportToExcel,
             allUsers,
             selectUserDeletion,
             selectedUser,
             error,
+            test,
         };
     },
 };

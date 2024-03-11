@@ -105,7 +105,7 @@
                 </div>
                 <!--logo End-->
 
-                <h4 class="logo-title">Cronex</h4>
+                <h4 class="logo-title">DYNAQUEST</h4>
             </router-link>
             <div
                 class="sidebar-toggle"

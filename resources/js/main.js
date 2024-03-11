@@ -2,6 +2,9 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 
+import PrimeVue from "primevue/config";
+import "primevue/resources/themes/lara-light-blue/theme.css";
+
 // Import Pinia
 import { createPinia } from "pinia";
 
@@ -17,8 +20,8 @@ import mitt from "mitt";
 
 // Import Solana
 import {
-	PhantomWalletAdapter,
-	SolflareWalletAdapter,
+    PhantomWalletAdapter,
+    SolflareWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { initWallet } from "solana-wallets-vue";
 import "solana-wallets-vue/styles.css";
@@ -37,5 +40,6 @@ let app = createApp(App);
 
 app.use(pinia);
 app.use(router);
+app.use(PrimeVue);
 app.provide("emitter", emitter);
 app.mount("#app");

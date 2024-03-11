@@ -67,6 +67,10 @@
 <script>
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
 import { useAuthStore } from "@/stores/AuthStore";
 import { useUserStore } from "@/stores/UserStore";
 import DeleteUserModal from "@/components/widgets/Modals/DeleteUserModal.vue";
@@ -81,15 +85,21 @@ export default {
         const authStore = useAuthStore();
         const userStore = useUserStore();
         const router = useRouter();
+        const $toast = useToast();
 
         const getallRolesHandler = async () => {
             console.log("user table refresh");
             const res = await userStore.loadUserRoles(authStore.getToken());
             if (res) {
+                $toast.success("Data Loaded");
                 console.log(userStore.roles);
                 allRoles.value = userStore.roles;
                 updateDataTable();
             } else {
+                $toast.open({
+                    message: "Something went wrong!",
+                    type: "error",
+                });
                 authStore.destroyUser();
                 router.push({ name: "Login" });
             }

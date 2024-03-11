@@ -20,10 +20,10 @@ Use OAuth UID to create new user, add more information about user.
 Route::post('/user/auth/login', [UsersController::class, 'login']);
 Route::post('/user/auth/register', [UsersController::class, 'register']);
 
-Route::post('/user/auth/validateToken', [UsersController::class, 'validateToken']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::post('/user/auth/validateToken', [UsersController::class, 'validateToken']);
     Route::post('/user/removeUser', [UsersController::class, 'removeUser']);
     
     Route::post('/client/auth/getAllClients', [ClientsController::class, 'getAllClients']);

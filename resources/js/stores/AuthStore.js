@@ -38,7 +38,6 @@ export const useAuthStore = defineStore("authStore", {
                 if (response.data.success) {
                     return true;
                 } else {
-                    this.destroyUser();
                     return false;
                 }
             } catch (axiosError) {
